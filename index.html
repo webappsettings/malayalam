@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<!-- Copyright (c) 2005, 2006 Vijay Lakshminarayanan <liyer.vijay@gmail.com> -->
+<!-- Permission is granted to copy, distribute and/or modify this      -->
+<!-- document under the terms of the GNU Free Documentation License,   -->
+<!-- Version 1.2 or any later version published by the Free Software   -->
+<!-- Foundation; with no Invariant Sections, no Front-Cover Texts, and -->
+<!-- no Back-Cover Texts.  A copy of the license is included in the    -->
+<!-- section entitled "GNU Free Documentation License".                -->
+
+<!-- 	$Id: malayalam.html,v 1.6 2006-03-26 02:44:19 vijay Exp $	 -->
+<!-- 	Author: Vijay Lakshminarayanan	 -->
+<!-- 	$Date: 2006-03-26 02:44:19 $	 -->
+<!-- 	Modified: Anthony Deign adeign@gmail.com	 -->
+<!-- 	$Date: 2006-Aug-15 02:44:19 $	 -->
+<!-- 	Modified: Criz Matt matt.criz@gmail.com	 -->
+<!-- 	$Date: 2010-Jul-11 02:44:19 $	 -->
+<meta name="google-site-verification" content="EgF9gXygNK-uaBTYadNzN9Tbh4dz_-KSooyQPjh2-vc">
+
+<meta name="author" content="Criz Matt">
+<meta http-equiv="Content-Language" content="en-us">
+<!-- <link rel="index" title="iLamozhi(ഇളമൊഴി): varamozhi(lite) Manglish to Malayalam converter Ver 2.0 Redistributed by Criz Matt| തനിമലയാളം - thani malayalam input | Unicode malayalam Typing | Malayalam Fonts | Type in Malayalam | Free Malayalam Editor | Varamozhi Lite | Malayalam Unicode Editor">
+<link rel="shortlink" href="http://tinyurl.com/2bbqtlu">
+<meta name="description" content="മലയാളത്തില്‍ ടൈപ്പ് ചെയ്യാന്‍ സന്ദര്ശിക്കുക. Type Malayalam in Manglish (Malayalam+English) and get Malayalam unicode output. A Lite version of Varamozhi">
+<meta name="keywords" content="iLamozhi, ഇളമൊഴി, varamozhi lite, varamozhi, Manglish to Malayalam converter, English to Malayalam converter, തനിമലയാളം, thani malayalam, malayalam input, malayalam unicode, typing malayalam, malayalam fonts, type in malayalam, malayalam text editor, malayalam unicode text editor, malayalam unicode editor">
+<meta name="google-site-verification" content="EgF9gXygNK-uaBTYadNzN9Tbh4dz_-KSooyQPjh2-vc">
+<link rel="canonical" href="http://www.ilamozhi.orgfree.com/"> -->
+<link rel="stylesheet" type="text/css" href="./iLamozhi_files/languages.css">
+<title>iLamozhi(ഇളമൊഴി): varamozhi(lite) Manglish to Malayalam converter Ver 2.0</title>
+
+<script src="./iLamozhi_files/malayalam.js"></script>
+<script src="./iLamozhi_files/converter.js"></script>
+
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+  <tr>
+    <td height="600" align="left" valign="top"><div class="content-wrapper">
+        <form name="convarea">
+          <table>
+            <tbody>
+            <tr>
+              <td><textarea id="language" class="inputbox" style="width:100%;height:300px" name="many_words_text" rows="10" cols="40" onkeyup="javascript:print_many_words(); return false">malayaaLam </textarea></td>
+              <td><textarea class="inputbox" style="width:100%;height:300px;font-size:15px" rows="10" cols="40" id="sec" name="converted_text" readonly="readonly"></textarea></td>
+            </tr>
+            <tr>
+              <td>
+                <textarea class="inputbox" style="width:100%;height:300px;font-size:30px;font-family: 'Apple cards Asif';" rows="10" cols="40" name="ta" id="asciiValue" readonly="readonly"></textarea>
+              </td>
+            </tr>
+          </tbody></table>
+          <table>
+            
+          </table>
+        </form>
+        
+        
+        </td>
+  </tr>
+</tbody></table>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  
+  $(function(){
+    initialize();
+});
+
+var textarea;
+var intervalId = 0;
+
+var elements = {
+  asciiValue : $('#asciiValue')
+};
+
+function initialize(){
+    textarea = $('#sec');
+    $('#language').on('focus keyup', function(){
+        updatePreviewTextOfAllFonts(textarea.val());
+    });
+
+    /*textarea.on('blur', function(){
+        clearInterval(intervalId);
+        updatePreviewTextOfAllFonts(textarea.val());
+    });*/
+
+}
+
+
+function updatePreviewTextOfAllFonts(unicodeValue){
+    var asciiValue = unicode2ascii(unicodeValue);
+    window.currentTextAsciiValue = asciiValue;
+  
+  elements.asciiValue.text( asciiValue );
+//    var elements = document.querySelectorAll('.demo:not(.Custom)');
+//    for(var i=0; i< elements.length; i++){
+//        elements[i].innerHTML = asciiValue;
+//    }
+
+}
+
+
+var mapTable;
+
+
+
+function unicode2ascii(strText, map){
+  //alert(strText);
+  var chUnicode;
+  var chAscii;
+  var index;
+  var lenChar;
+  var bRepham=0;
+  var ascii_text="";
+  
+  //mapTable=JSON.parse(karthikaJson);
+  //alert(mapTable.map["ണ്ട"]);
+  for(index=0; index< strText.length;)
+  {
+  
+    
+    for(lenChar=3;lenChar>0;lenChar--)
+    {     
+      chUnicode=strText.substring(index,index+lenChar);
+    //alert (chUnicode);
+      if(mapTable.map[chUnicode])
+      {
+        chAscii=mapTable.map[chUnicode];        
+        if(chUnicode == "ൈ")
+        {
+          if(bRepham==1)
+          {
+            bRepham=0;
+            ascii_text=ascii_text.substring(0,ascii_text.length-2)+chAscii+ascii_text[ascii_text.length-2] +ascii_text[ascii_text.length-1];
+          }
+          else{
+            ascii_text=ascii_text.substring(0,ascii_text.length-1)+chAscii+ascii_text[ascii_text.length-1];
+          }
+          
+          
+        }else if((chUnicode == "ോ") || (chUnicode == "ൊ") || (chUnicode == "ൌ")){
+          if(bRepham==1)
+          {
+            bRepham=0;
+            ascii_text = ascii_text.substring(0,ascii_text.length-2) + chAscii[0] +ascii_text[ascii_text.length-2]+ ascii_text[ascii_text.length-1] + chAscii[1];
+          }
+          else{
+          //alert (chUnicode);
+          //alert ("char0:"+chAscii[0]+" middlechar:"+ascii_text[ascii_text.length-1]+ " char1:"+chAscii[1]);
+            ascii_text = ascii_text.substring(0,ascii_text.length-1) + chAscii[0] + ascii_text[ascii_text.length-1] + chAscii[1];
+          //alert ("ascii_text(ഒ ഓ ഒ ഔ): "+ascii_text);           
+          }
+          
+        }
+        else if(chUnicode == "്യേ" ||chUnicode == "്യെ" ){
+        //alert (chUnicode);
+          bRepham=0;
+        //alert ("starting char:"+ascii_text[ascii_text.length-2]+"char0:"+chAscii[0]+" middlechar:"+ascii_text[ascii_text.length-1]+ " char1:"+chAscii[1]);
+          ascii_text = ascii_text.substring(0,ascii_text.length-1) + chAscii[0] + ascii_text[ascii_text.length-1] + chAscii[1];
+        //alert ("ascii_text(യേ യെ): "+ascii_text);
+        }
+        else if ((chUnicode == "െ") || (chUnicode == "േ") ||(chUnicode == "്ര")){
+        //alert (chUnicode);
+          
+          //alert(" middlechar:"+ascii_text[ascii_text.length-2]+ " char1:"+chAscii[1]);
+          if(bRepham==1)
+          {
+            ascii_text = ascii_text.substring(0,ascii_text.length-2)+ chAscii[0] + ascii_text[ascii_text.length-2] + ascii_text[ascii_text.length-1];
+            bRepham=0;
+          }else
+          {
+            ascii_text = ascii_text.substring(0,ascii_text.length-1)+ chAscii[0] + ascii_text[ascii_text.length-1];
+          //alert ("ascii_text (എ, ഏ, റ): "+ascii_text);
+          }
+          if(chUnicode == "്ര")
+          {
+            bRepham=1;
+          }
+        }
+        else
+        {
+        //alert (chUnicode);
+          bRepham=0;
+          ascii_text=ascii_text+chAscii;
+        //alert ("ascii_text (none): "+ascii_text);
+        }
+        index=index+lenChar;
+        break;
+      }
+      else
+      {
+        
+        if(lenChar==1)
+        {
+          
+          ascii_text = ascii_text + chUnicode;
+          index++;
+          bRepham=0;
+        }
+        //alert(ascii_text);
+      }
+    }
+    //console.log(ascii_text);
+  }
+  return ascii_text;
+}
+
+
+var mapTable = {
+    "font": "karthika",
+    "map": {
+        "ം": "w",
+        "ഃ": "x",
+        "അ": "A",
+        "ആ": "B",
+        "ഇ": "C",
+        "ഈ": "Cu",
+        "ഉ": "D",
+        "ഊ": "Du",
+        "ഋ": "E",
+        "ഌ": "p",
+        "എ": "F",
+        "ഏ": "G",
+        "ഐ": "sF",
+        "ഒ": "H",
+        "ഓ": "Hm",
+        "ഔ": "Hu",
+        "ക": "I",
+        "ഖ": "J",
+        "ഗ": "K",
+        "ഘ": "L",
+        "ങ": "M",
+        "ച": "N",
+        "ഛ": "O",
+        "ജ": "P",
+        "ഝ": "Q",
+        "ഞ": "R",
+        "ട": "S",
+        "ഠ": "T",
+        "ഡ": "U",
+        "ഢ": "V",
+        "ണ": "W",
+        "ത": "X",
+        "ഥ": "Y",
+        "ദ": "Z",
+        "ധ": "[",
+        "ന": "\\",
+        "പ": "]",
+        "ഫ": "^",
+        "ബ": "_",
+        "ഭ": "`",
+        "മ": "a",
+        "യ": "b",
+        "ര": "c",
+        "റ": "d",
+        "ല": "e",
+        "ള": "f",
+        "ഴ": "g",
+        "വ": "h",
+        "ശ": "i",
+        "ഷ": "j",
+        "സ": "k",
+        "ഹ": "l",
+        "ാ": "m",
+        "ി": "n",
+        "ീ": "o",
+        "ു": "p",
+        "ൂ": "q",
+        "ൃ": "r",
+        "െ": "s",
+        "േ": "t",
+        "ൈ": "ss",
+        "ൊ": "sm",
+        "ോ": "tm",
+        "ൌ": "su",
+        "്‌": "v",
+        "്": "v",
+        "ൗ": "u",
+        "്യേ": "ty",
+        "്യെ": "sy",
+        "ക്ക": "¡",
+        "ക്ല": "¢",
+        "ക്ഷ": "£",
+        "ഗ്ഗ": "¤",
+        "ഗ്ല": "¥",
+        "ങ്ക": "¦",
+        "ങ്ങ": "§",
+        "ച്ച": "¨",
+        "ഞ്ച": "©",
+        "ഞ്ഞ": "ª",
+        "ട്ട": "«",
+        "ണ്‍": "¬",
+        // "ണ്ട": "ï",
+        "ണ്ട": "@",
+        "ണ്ണ": "®",
+        "ത്ത": "¯",
+        "ത്ഥ": "°",
+        "ദ്ദ": "±",
+        "ദ്ധ": "²",
+        "ന്‍": "³",
+        "ൻ": "³",
+        "ന്ത": "´",
+        "ന്ദ": "µ",
+        "ന്ന": "¶",
+        "ന്മ": "·",
+        "പ്പ": "¸",
+        "പ്ല": "¹",
+        "ബ്ബ": "º",
+        "ബ്ല": "»",
+        "മ്പ": "¼",
+        "മ്മ": "½",
+        "മ്ല": "Ÿ",
+        "യ്യ": "¿",
+        "ർ‌": "À",
+        "ർ‍": "À",
+        "ർ": "À",
+        "ര്‍": "À",
+        "റ്റ": "ä",
+        "ല്‍": "Â",
+        "ൽ": "Â",
+        "ല്ല": "Ã",
+        "ള്‍": "Ä",
+        "ൾ": "Ä",
+        "ള്ള": "Å",
+        "വ്വ": "Æ",
+        "ശ്ല": "Ç",
+        "ശ്ശ": "È",
+        "സ്ല": "É",
+        "സ്സ": "Ê",
+        "ഹ്ല": "Ë",
+        "സ്റ്റ": "Ì",
+        "ഡ്ഡ": "Í",
+        "ക്ട": "Î",
+        "ബ്ധ": "Ï",
+        "ബ്ദ": "Ð",
+        "ച്ഛ": "Ñ",
+        "ഹ്മ": "Ò",
+        "ഹ്ന": "Ó",
+        "ന്ധ": "Ô",
+        "ത്സ": "Õ",
+        "ജ്ജ": "Ö",
+        "ണ്മ": "×",
+        "സ്ഥ": "Ø",
+        "ന്ഥ": "Ù",
+        "ജ്ഞ": "Ú",
+        "ത്ഭ": "Û",
+        "ഗ്മ": "Ü",
+        "ശ്ച": "Ý",
+        "ണ്ഡ": "Þ",
+        "ത്മ": "ß",
+        "ക്ത": "à",
+        "ഗ്ന": "á",
+        "ന്റ": "â",
+        "ഷ്ട": "ã",
+        "്യ": "y",
+        "്വ": "z",
+        "്ര": "{",
+        "-": "þ"
+    }
+};
+
+
+
+</script>
+
+
+
+</body></html>

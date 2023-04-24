@@ -1,0 +1,127 @@
+body {
+	background-color: white;
+	color: black;
+	font-family: "Times New Roman", serif;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+
+h1, h2, h3, h4 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+
+}
+
+
+
+
+
+h1 {
+   background-color:#93BBFD; font-size: 200%;
+    text-align: center;
+}
+
+
+
+h2 {
+    font-size: 130%;
+}
+
+h3 {
+    font-size: 120%;
+}
+
+h4 {
+    font-size: 80%;
+}
+
+
+p {
+    font-size: 100%;
+}
+
+p.small {
+    font-size: 70%;
+    text-align: center;
+}
+
+p.important {
+  background-color:inherit;
+ color: red;
+}
+
+
+ul {
+ float:left;
+ width:100%;
+ padding:0;
+ margin:0;
+ list-style-type: none;
+ list-style-position: inside;
+}
+
+li.inline {display:inline}
+
+
+table {
+  table-layout: fixed;  /* Speeds up table layout */
+ width: 100%; height: auto;
+ vertical-align: top;
+}
+
+
+th {
+ font-family: Verdana; font-size: 10pt; background-color: #BDF;
+ color: inherit;
+}
+
+td {
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+table.sub {
+    border: 2px solid #888888  /* Speeds up table layout */
+}.mg {
+  font-size: 1.5em;
+  text-align: center;
+ background-color: #FFBC79;
+ color: inherit;
+}
+
+
+a {
+ color: red;
+ text-decoration: none; background-color: transparent;
+}
+
+a.language {
+  text-decoration: none;
+}
+
+
+a:visited {
+ color: inherit;
+ background-color:inherit;
+}
+
+a:hover {
+ color: red;
+ text-decoration: underline; background-color: inherit;
+}
+
+<STYLE TYPE="text/css">
+
+
+.inputbox {border-width: 1px;
+	border-style: solid;
+	border-color: #DDDDDD;
+	font: 15px arial,helvetica;
+	z-index: 10;
+}
+
+
+</STYLE>
